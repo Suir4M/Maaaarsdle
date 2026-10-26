@@ -1,0 +1,739 @@
+/* =========================================================
+   Wizardle : feuille de style
+   =========================================================
+
+   Sommaire
+     1. Couleurs et réglages de base
+     2. Fond animé (étoiles, nuages)
+     3. Titre et structure de la page
+     4. Menu d'accueil (cartes des modes de jeu)
+     5. Barre de navigation
+     6. Recherche et suggestions
+     7. Éléments communs (citations, pastilles, victoire, boutons)
+     8. Tableau du mode Classique
+     9. Portraits (avatars)
+    10. Silhouette
+    11. Portrait flou et mode Lieu
+    12. Mode Baguette
+    13. Mode Point commun
+    14. Téléphone (écrans étroits)
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   1. Couleurs et réglages de base
+   --------------------------------------------------------- */
+
+:root {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+
+  /* Thème sombre unique */
+  --bg:   #080c14;   /* fond de la page */
+  --fg:   #eceefa;   /* texte */
+  --card: #121a2b;   /* cartes, champs */
+  --bd:   #26324d;   /* bordures */
+  --ac:   #8fa2ff;   /* accent (bleu clair) */
+  --gold: #e3b84f;   /* or : titres, bordures importantes */
+  --sil:  #05060f;   /* couleur de la silhouette */
+
+  /* Résultats des indices */
+  --ok:  #2f9457;    /* vert : identique */
+  --no:  #b9423a;    /* rouge : différent */
+  --mid: #d28a1c;    /* orange : en partie identique */
+}
+
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #080c14;
+  color: var(--fg);
+  font-family: Georgia, "Palatino Linotype", serif;
+}
+
+button {
+  touch-action: manipulation;                 /* tap fiable sur mobile */
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* ---------------------------------------------------------
+   2. Fond animé (étoiles et nuages)
+   --------------------------------------------------------- */
+
+.bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Étoiles qui scintillent */
+.tw { animation: tw 3s ease-in-out infinite; }
+.tw:nth-child(3n)   { animation-delay: 1s; }
+.tw:nth-child(3n+1) { animation-delay: 2s; }
+@keyframes tw {
+  50% { opacity: .25; }
+}
+
+/* Nuages qui flottent */
+.cd { animation: fl 6s ease-in-out infinite; }
+.cd:nth-child(2n) { animation-delay: -3s; }
+@keyframes fl {
+  50% { transform: translateY(-16px); }
+}
+
+
+/* ---------------------------------------------------------
+   3. Titre et structure de la page
+   --------------------------------------------------------- */
+
+main {
+  position: relative;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 12px 12px 40px;
+}
+
+h1 {
+  margin: 6px 0 10px;
+  font-size: 34px;
+  font-variant: small-caps;
+  letter-spacing: 3px;
+  text-align: center;
+  color: var(--gold);
+  text-shadow: 0 2px 14px color-mix(in srgb, var(--gold) 45%, transparent);
+}
+h1::before,
+h1::after {
+  content: "⚡";
+  font-size: 20px;
+  margin: 0 10px;
+}
+
+/* Chaque mode de jeu est une <section> : une seule visible à la fois */
+section { display: none; }
+section.on { display: block; }
+
+.tag {
+  margin: 0 0 18px;
+  font-size: 15px;
+  text-align: center;
+  opacity: .8;
+}
+
+.sub {
+  margin: 0 0 8px;
+  font-size: 13px;
+  text-align: center;
+  opacity: .75;
+}
+
+
+/* ---------------------------------------------------------
+   4. Menu d'accueil (cartes des modes de jeu)
+   --------------------------------------------------------- */
+
+.cards {
+  display: grid;
+  gap: 12px;
+}
+
+.cards button {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  column-gap: 14px;
+  align-items: center;
+  padding: 14px;
+  font: inherit;
+  text-align: left;
+  color: var(--fg);
+  background: rgba(14, 20, 36, .72);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--bd);
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .35);
+  transition: .2s;
+}
+.cards button:active {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+@media (hover: hover) {
+  .cards button:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+}
+
+/* Pastille de l'icône */
+.cards i {
+  grid-row: 1 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  font-style: normal;
+  background: radial-gradient(circle, #2a3770, #141b3a);
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+}
+.cards b {
+  align-self: end;
+  font-size: 19px;
+  color: var(--gold);
+}
+.cards small {
+  align-self: start;
+  font-size: 13px;
+  opacity: .75;
+}
+
+/* Bouton "← Menu" */
+#back {
+  margin-bottom: 10px;
+  padding: 7px 14px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--gold);
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 20px;
+}
+#back[hidden],
+#home[hidden] {
+  display: none;
+}
+
+
+/* ---------------------------------------------------------
+   5. Barre de navigation
+   --------------------------------------------------------- */
+
+nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin-bottom: 14px;
+  padding: 4px;
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .12);
+}
+
+nav button {
+  padding: 9px 2px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--fg);
+  background: none;
+  border: 0;
+  border-radius: 10px;
+  transition: .2s;
+}
+nav button.on {
+  color: var(--bg);
+  background: var(--ac);
+  border-color: var(--ac);
+}
+
+
+/* ---------------------------------------------------------
+   6. Recherche et suggestions
+   --------------------------------------------------------- */
+
+.pk {
+  position: relative;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  font: inherit;
+  font-size: 16px;   /* 16px minimum : évite le zoom automatique sur iPhone */
+  color: var(--fg);
+  background: rgba(14, 20, 36, .9);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+}
+
+.sg {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4px;
+}
+.sg button {
+  min-height: 44px;   /* zone de clic confortable au doigt */
+  padding: 10px 12px;
+  font: inherit;
+  text-align: left;
+  color: var(--fg);
+  background: rgba(14, 20, 36, .85);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--bd);
+  border-top: 0;
+}
+.sg button:last-child {
+  border-radius: 0 0 10px 10px;
+}
+
+
+/* ---------------------------------------------------------
+   7. Éléments communs
+   --------------------------------------------------------- */
+
+.st {
+  margin: 8px 0 14px;
+  text-align: center;
+}
+.st svg {
+  width: 150px;
+  height: 240px;
+  fill: var(--sil);
+}
+
+/* Grand emoji (potion, lieu…) */
+.big {
+  font-size: 84px;
+  line-height: 1.1;
+}
+
+/* Citations, descriptions de sort, de potion… */
+blockquote {
+  margin: 0;
+  padding: 16px;
+  font-size: 19px;
+  font-style: italic;
+  text-align: left;
+  background: rgba(14, 20, 36, .85);
+  backdrop-filter: blur(6px);
+  border-left: 4px solid var(--gold);
+  border-radius: 6px;
+}
+
+.hint {
+  margin: 8px 0;
+  font-size: 14px;
+  color: var(--gold);
+}
+
+/* Pastilles rouges des mauvaises réponses */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+.chip {
+  padding: 5px 10px;
+  font-size: 13px;
+  color: #fff;
+  background: var(--no);
+  border-radius: 14px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+}
+
+/* Encadré de victoire */
+.win {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  padding: 12px;
+  font-size: 17px;
+  text-align: center;
+  background: rgba(14, 20, 36, .85);
+  backdrop-filter: blur(6px);
+  border: 2px solid var(--gold);
+  border-radius: 16px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, .18);
+  animation: pop .5s both;
+}
+.win.late {
+  animation-delay: 2.7s;   /* attend la fin de l'animation du tableau */
+}
+@keyframes pop {
+  from { transform: scale(.85); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
+/* Bouton "Nouvelle partie" */
+.nw {
+  width: 100%;
+  margin-top: 14px;
+  padding: 11px;
+  font: inherit;
+  color: var(--gold);
+  background: none;
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+}
+
+
+/* ---------------------------------------------------------
+   8. Tableau du mode Classique
+   Une ligne = le nom + 7 indices (colonnes de la grille)
+   --------------------------------------------------------- */
+
+.row {
+  display: grid;
+  grid-template-columns: 1.2fr repeat(7, 1fr);
+  gap: 3px;
+  margin-top: 3px;
+  align-items: stretch;
+}
+
+/* Une case */
+.c {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 6px 2px;
+  font-family: system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  word-break: break-word;
+  hyphens: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+}
+
+/* Case du nom */
+.c.nm {
+  font-weight: 700;
+  color: var(--fg);
+  background: rgba(14, 20, 36, .85);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--bd);
+}
+
+/* Ligne d'en-tête (titres des colonnes) */
+.hd .c {
+  font-size: 10px;
+  color: var(--gold);
+  background: none;
+}
+
+/* Couleurs des résultats */
+.ok  { background: var(--ok); }
+.no  { background: var(--no); }
+.mid { background: var(--mid); }
+
+/* La dernière ligne ajoutée se retourne case par case */
+.row.new .c {
+  animation: flip .55s both;
+  animation-delay: calc((var(--i, -1) + 1) * .45s);
+}
+@keyframes flip {
+  from { transform: rotateX(90deg) scale(.8); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
+
+/* ---------------------------------------------------------
+   9. Portraits (avatars)
+   Photo : images/<nom>.jpg — sinon les initiales s'affichent
+   --------------------------------------------------------- */
+
+.av {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  overflow: hidden;
+  font-weight: 700;
+  color: #fff;
+  background: #1a4a48;
+  border: 3px solid var(--gold);
+  border-radius: 50%;
+}
+.av.lg {
+  width: 120px;
+  height: 120px;
+  font-size: 38px;
+}
+
+/* La photo recouvre les initiales */
+.av img {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Initiales (visibles si la photo est absente) */
+.av span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--gold);
+  background: var(--card);
+}
+.av.fallback img  { display: none; }
+.av.fallback span { display: flex; }
+
+
+/* ---------------------------------------------------------
+   10. Silhouette
+   --------------------------------------------------------- */
+
+.sil {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 210px;
+  height: 270px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: radial-gradient(
+    circle at 50% 35%,
+    color-mix(in srgb, var(--gold) 45%, var(--card)),
+    var(--card)
+  );
+  border: 2px solid var(--gold);
+  border-radius: 18px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, .2);
+}
+.sil img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+  transition: filter .5s;
+}
+.sil svg {
+  width: 160px;
+  height: 250px;
+  filter: drop-shadow(0 0 8px var(--gold));
+}
+
+
+/* ---------------------------------------------------------
+   11. Portrait flou et mode Lieu
+   Cadre carré identique pour tous les personnages. Il est en flex :
+   l'image (ou l'emoji) est son enfant direct, donc il n'y a plus
+   d'espace vide en dessous (une image "inline" en laisse un).
+   --------------------------------------------------------- */
+
+.flou-cadre,
+.win .flou-cadre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 340px);
+  aspect-ratio: 1 / 1;
+  margin: 10px auto;
+  overflow: hidden;
+  background: rgba(10, 26, 28, .92);
+  border: 2px solid var(--gold);
+  border-radius: 16px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, .35);
+}
+
+.flou-cadre img,
+.win .flou-cadre img,
+.flou-photo {
+  display: block;
+  flex: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter .25s ease;   /* le flou diminue en douceur */
+}
+
+/* Emoji de victoire (mode Lieu) */
+.flou-cadre .big {
+  line-height: 1;
+}
+
+
+/* ---------------------------------------------------------
+   12. Mode Baguette
+   --------------------------------------------------------- */
+
+/* Nom + 4 colonnes (bois, cœur, longueur, souplesse) */
+.row.bag {
+  grid-template-columns: 1.3fr repeat(4, 1fr);
+}
+
+/* Image de la baguette affichée à la victoire */
+.baguette-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: min(100%, 320px);
+  min-height: 90px;
+  margin: 0 auto 4px;
+  padding: 10px;
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--gold) 25%, var(--card)),
+    var(--card)
+  );
+  border: 2px solid var(--gold);
+  border-radius: 16px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, .35);
+}
+.baguette-img img {
+  display: block;
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+}
+.baguette-img .big {
+  font-size: 64px;
+}
+
+
+/* ---------------------------------------------------------
+   13. Mode Point commun
+   --------------------------------------------------------- */
+
+/* Les 4 personnages à comparer */
+.lien-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 6px 0 14px;
+}
+.lien-p {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 6px 6px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  background: var(--card);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+}
+.lien-p span {
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+/* Cadre portrait 3:4 : la photo le remplit sans jamais être écrasée */
+.lien-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: #5a1a28;
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+}
+.lien-photo img {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+/* Initiales (visibles si la photo est absente) */
+.lien-photo b {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: var(--gold);
+}
+.lien-photo.fallback img { display: none; }
+
+/* Historique des essais */
+.essai-lien {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 9px 12px;
+  font-size: 14px;
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+}
+.pts {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.pt {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.pt.ok { background: var(--ok); }
+.pt.no { background: var(--no); }
+
+
+/* ---------------------------------------------------------
+   14. Téléphone (écrans de 480px et moins)
+   --------------------------------------------------------- */
+
+@media (max-width: 480px) {
+  main {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  h1 {
+    font-size: 30px;
+  }
+
+  /* Tableau : cases plus petites pour tout faire tenir */
+  .row {
+    gap: 2px;
+  }
+  .c {
+    min-height: 42px;
+    padding: 5px 1px;
+    font-size: 8px;
+    border-radius: 7px;
+  }
+  .hd .c {
+    font-size: 7.5px;
+  }
+
+  /* Point commun */
+  .lien-grid {
+    gap: 5px;
+  }
+  .lien-p {
+    padding: 4px 4px 6px;
+    font-size: 10.5px;
+  }
+  .lien-photo b {
+    font-size: 20px;
+  }
+}
