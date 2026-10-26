@@ -53,6 +53,7 @@ const UNIVERS = [
     jeu: "Marveldle",
     description: "Pars à la recherche du héro, vilain ou de l'allié improbable.",
     icone: "✦",
+    image: "../Maaaarsdle/images/Marveldle.jpg",
     couleur: "#e0504a",
     url: "Marveldle/index.html",
     statut: "disponible",
