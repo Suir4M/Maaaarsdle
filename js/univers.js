@@ -17,7 +17,7 @@
    ========================================================= */
 
 const SITE = {
-  nom: "Marsdle"
+  nom: "Maaaarsdle"
 };
 
 const UNIVERS = [
@@ -27,7 +27,7 @@ const UNIVERS = [
     jeu: "Wizardle",
     description: "Retrouve le personnage mystère parmi les sorciers, créatures et professeurs de Poudlard.",
     icone: "⚡",
-    image: "../Marsdle/images/Wizardle.jpg",
+    image: "../Maaaarsdle/images/Wizardle.jpg",
     couleur: "#c9a24a",
     url: "Wizardle/index.html",
     statut: "disponible",
@@ -40,7 +40,7 @@ const UNIVERS = [
     jeu: "Disneydle",
     description: "Princes, princesses, méchants et compagnons : qui sera le personnage caché ?",
     icone: "🏰",
-    image: "../Marsdle/images/Disneydle.jpg",
+    image: "../Maaaarsdle/images/Disneydle.jpg",
     couleur: "#5aa2ff",
     url: "Disneydle/index.html",
     statut: "disponible",
@@ -53,7 +53,7 @@ const UNIVERS = [
     jeu: "Vampiredle",
     description: "Dans un monde rempli d'humains, de vampires et de loups-garous, retrouves le bon personnage.",
     icone: "🧛",
-    image: "../Marsdle/images/Vampiredle.jpg",
+    image: "../Maaaarsdle/images/Vampiredle.jpg",
     couleur: "#b30023",
     url: "Vampiredle/index.html",
     statut: "disponible",
@@ -66,7 +66,7 @@ const UNIVERS = [
     jeu: "TWLdle",
     description: "Des clients, des employés et quelques secrets : devine qui se cache derrière chaque indice.",
     icone: "🪷",
-    image: "../Marsdle/images/TWLdle.jpg",
+    image: "../Maaaarsdle/images/TWLdle.jpg",
     couleur: "#4fc3a1",
     url: "TWLdle/index.html",
     statut: "disponible",
