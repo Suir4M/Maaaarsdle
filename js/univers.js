@@ -48,6 +48,18 @@ const UNIVERS = [
     visible: true
   },
   {
+    id: "marvel",
+    univers: "Marvel",
+    jeu: "Marveldle",
+    description: "Pars à la recherche du héro, vilain ou de l'allié improbable.",
+    icone: "✦",
+    couleur: "#e0504a",
+    url: "Marveldle/index.html",
+    statut: "disponible",
+    modes: ["Classique"],
+    visible: true
+  },
+  {
     id: "vampire-diaries",
     univers: "Vampire Diaries",
     jeu: "Vampiredle",
@@ -73,16 +85,4 @@ const UNIVERS = [
     modes: ["Classique", "Citation", "Portrait flou", "Lien"],
     visible: true
   },
-  {
-    id: "marvel",
-    univers: "Marvel",
-    jeu: "Marveldle",
-    description: "Pars à la recherche du héro, vilain ou de l'allié improbable.",
-    icone: "✦",
-    couleur: "#e0504a",
-    url: "Marveldle/index.html",
-    statut: "disponible",
-    modes: ["Classique"],
-    visible: true
-  }
 ];
